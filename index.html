@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>My Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Poppins:wght@700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --highlight-color: #d47a3d;
@@ -15,7 +15,7 @@
     html, body {
       margin: 0;
       height: 100%;
-      font-family: Arial, sans-serif;
+      font-family: 'Poppins', sans-serif;
       background: linear-gradient(to bottom, white, var(--bg-accent));
       color: navy;
       display: flex;
@@ -32,14 +32,16 @@
       margin-bottom: 10px;
       color: var(--highlight-color);
       user-select: none;
-      animation: fadeIn 0.8s ease-out forwards;
-      line-height: 1.12;
       text-shadow:
-        1px 1px 0 white,
-        -1px 1px 0 white,
-        1px -1px 0 white,
-        -1px -1px 0 white,
-        2px 2px 2px rgba(0,0,0,0.15);
+        1px 1px 3px white;
+      line-height: 1.12;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .header.hidden {
+      opacity: 0;
+      transform: translateY(-20px);
     }
 
     .header .small {
@@ -55,178 +57,209 @@
       filter: drop-shadow(0 1px 1px white) drop-shadow(0 -1px 1px #fff);
     }
 
-    .container {
-      padding: 1rem 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 90%;
-      max-width: 700px;
-      box-sizing: border-box;
-      flex-grow: 1;
-      justify-content: center;
-    }
-
     .profile {
       text-align: center;
-      position: relative;
-      z-index: 1;
-      animation: zoomIn 0.7s ease-out forwards;
+      margin-top: 15px;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+    }
+    .profile.hidden {
+      opacity: 0;
+      transform: translateY(-20px);
     }
 
     .profile img {
-      width: 180px;
-      height: 180px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid white;
-      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.5);
-      transition: width 0.3s ease, height 0.3s ease;
-      opacity: 0;
-      animation: zoomIn 0.7s ease-out forwards;
-      animation-delay: 0.2s;
+      border: 3px solid #d47a3d;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
     .profile p {
       margin-top: 10px;
       font-size: 20px;
-      font-weight: bold;
+      font-weight: 700;
       color: var(--highlight-color);
       font-family: 'Poppins', sans-serif;
-      text-shadow: 1px 1px 3px rgba(128, 128, 128, 0.5);
-      opacity: 0;
-      animation: fadeIn 0.8s ease-in forwards;
-      animation-delay: 0.6s;
     }
 
-    .buttons {
-      margin-top: 30px;
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
-      max-width: 600px;
-      position: relative;
-      z-index: 1;
+    .info-toggle {
+      font-family: 'Cherry Bomb One', cursive;
+      font-size: 20px;
+      margin-top: 5px;
+      color: var(--highlight-color);
+      text-decoration: underline;
+      cursor: pointer;
+      user-select: none;
     }
 
     .glass-btn {
-      flex: 1 1 160px;
-      padding: 14px 24px;
+      display: inline-flex;
+      align-items: center;
       background: rgba(255, 255, 255, 0.15);
       border-radius: 12px;
       border: 1px solid rgba(255, 255, 255, 0.3);
       box-shadow: 0 4px 10px rgba(255, 255, 255, 0.5);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      color: white;
-      font-weight: 600;
-      font-size: 17px;
-      text-align: center;
-      cursor: pointer;
+      padding: 10px 20px;
+      margin: 10px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
       text-decoration: none;
-      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+      color: navy;
+      text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.7);
+      transition: transform 0.3s ease, opacity 0.5s ease;
       user-select: none;
-      min-width: 140px;
-      text-shadow: 1px 1px 3px var(--shadow-color);
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
+    }
+    .glass-btn.hidden {
       opacity: 0;
-      animation: zoomIn 0.6s ease-out forwards;
+      transform: translateY(20px);
     }
-
-    .buttons a:nth-child(1) { animation-delay: 0.8s; }
-    .buttons a:nth-child(2) { animation-delay: 1.0s; }
-    .buttons a:nth-child(3) { animation-delay: 1.2s; }
-
-    .glass-btn img {
-      width: 28px;
-      height: 28px;
-      border-radius: 12px !important;
-      object-fit: cover;
-      border: 1.5px solid white;
-      flex-shrink: 0;
-    }
-
     .glass-btn:hover {
-      background: rgba(255, 255, 255, 0.35);
-      color: #ffffff;
-      box-shadow: 0 6px 14px rgba(255, 255, 255, 0.7);
+      transform: scale(1.05);
+    }
+    .glass-btn img {
+      width: 25px;
+      height: 25px;
+      margin-right: 10px;
+      border-radius: 5px;
+    }
+
+    .buttons {
+      text-align: center;
+      margin-top: 20px;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s;
+    }
+    .buttons.hidden {
+      opacity: 0;
+      transform: translateY(20px);
     }
 
     footer {
-      text-align: center;
-      font-family: 'Poppins', 'SF Francisco', Arial, sans-serif;
-      font-weight: 700;
-      font-size: 14px;
-      color: white;
-      padding: 12px 0;
+      margin-top: auto;
+      padding: 20px 0;
+      font-size: 12px;
+      font-family: 'Poppins', sans-serif;
+      color: #444;
+      opacity: 0.8;
       user-select: none;
-      width: 100%;
-      max-width: 700px;
-      box-sizing: border-box;
-      text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.7);
+      transition: opacity 0.5s ease;
+    }
+    footer.hidden {
       opacity: 0;
-      animation: slideUpFade 0.7s ease-out forwards;
-      animation-delay: 1.5s;
+    }
+
+    .info-box {
+      display: none;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 30px;
+      max-width: 700px;
+      width: 90%;
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      text-shadow: 1px 1px 2px black;
+      animation: zoomIn 0.6s ease-out forwards;
+      margin: 40px auto 80px;
+      min-height: 70vh;
+      overflow-y: auto;
+      box-sizing: border-box;
+      user-select: text;
+      position: relative;
+      top: 0;
+    }
+
+    .info-box h2 {
+      font-family: 'Cherry Bomb One', cursive;
+      color: var(--highlight-color);
+      margin-bottom: 25px;
+      text-align: center;
+      text-shadow: 1px 1px 3px white;
+    }
+
+    /* Paragraph styling with mixed normal and bold based on quotes */
+    .info-box p {
+      font-size: 16px;
+      line-height: 1.6;
+      font-weight: 400;
+      color: white;
+      text-shadow: 1px 1px 2px black;
+      margin-bottom: 1em;
+    }
+
+    /* Bold inside quotes */
+    .info-box p strong {
+      font-weight: 700;
+    }
+
+    /* Cherry Bomb One styled div for special texts */
+    .special-text {
+      font-family: 'Cherry Bomb One', cursive;
+      color: var(--highlight-color);
+      text-align: center;
+      margin: 40px 0 20px;
+      font-size: 20px;
+      text-shadow: 1px 1px 3px white;
+      user-select: none;
+    }
+
+    .back-button {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 20px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      background: none;
+      border: none;
+      color: var(--highlight-color);
+      cursor: pointer;
+      z-index: 100;
+      user-select: none;
+      transition: opacity 0.4s ease;
+    }
+    .back-button.show {
+      display: block;
+      opacity: 1;
+    }
+    .back-button.hide {
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
     }
 
     @keyframes zoomIn {
       0% { opacity: 0; transform: scale(0.8); }
       100% { opacity: 1; transform: scale(1); }
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes slideUpFade {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 480px) {
-      .profile img {
-        width: 130px;
-        height: 130px;
-      }
-      .profile p {
-        font-size: 16px;
-      }
-      .glass-btn {
-        flex: 1 1 100%;
-        font-size: 15px;
-        padding: 12px 16px;
-      }
-      .glass-btn img {
-        width: 22px;
-        height: 22px;
-        border-radius: 10px !important;
-      }
-      .header .large {
-        font-size: 18px;
-      }
-    }
   </style>
 </head>
 <body>
-  <div class="header">
-    <span class="small">my</span>
-    <span class="large">PORTFOLIO !</span>
-  </div>
+  <button class="back-button" id="backBtn" onclick="toggleInfo(false)">&lt; Back</button>
 
-  <div class="container">
-    <div class="profile">
-      <img src="https://res.cloudinary.com/dwa0cojga/image/upload/v1747634958/489640837_698585669276312_6653030367754676127_n_ikubar.jpg" alt="Profile Picture" />
-      <p>venczyyy</p>
+  <div id="mainContent">
+    <div class="header" id="header">
+      <span class="small">my</span>
+      <span class="large">PORTFOLIO !</span>
     </div>
 
-    <div class="buttons">
+    <div class="profile" id="profile">
+      <img src="https://res.cloudinary.com/dwa0cojga/image/upload/v1747634958/489640837_698585669276312_6653030367754676127_n_ikubar.jpg" alt="Profile Picture" />
+      <p>venczyyy</p>
+      <div class="info-toggle" onclick="toggleInfo(true)">~ info ~</div>
+    </div>
+
+    <div class="buttons" id="buttons">
       <a href="https://payhip.com/czyven" target="_blank" class="glass-btn">
         <img src="https://res.cloudinary.com/dwa0cojga/image/upload/v1747635236/images_2_uph3yf.jpg" alt="Payhip" />
         payhip store !
@@ -241,6 +274,71 @@
       </a>
     </div>
   </div>
-  <footer>© 2025 VENCZYYY ALL RIGHTS RESERVED.</footer>
+
+  <div class="info-box" id="infoBox" role="region" aria-label="About Me Information">
+    <h2>about me</h2>
+    <p>Hello! My name is <strong>Czy</strong>, but you can call me <strong>"Ven"</strong>, <strong>"Czy"</strong>, <strong>"Venczy"</strong>, or <strong>"ดาว"</strong> which means <strong>"star"</strong>. I’ve been editing since <strong>2018</strong>. I started when the sasswars videos were famous. I learned and discovered editing through <strong>TikTok</strong>. The first editing software I used was <strong>"Kinemaster"</strong>. It was a great experience, and now I am using <strong>"After Effects 2025"</strong>.</p>
+
+    <div class="special-text">Why do I have my Thai Nickname?</div>
+    <p>It started in <strong>2020</strong> when Thai Series became really famous. And upon watching some of them, I found the Thai language cute and challenging. So I challenged myself to learn Thai too! One of the reasons why I’m learning it is because I’m planning to study at <strong>Chulalongkorn University</strong>.</p>
+
+    <div class="special-text">What are the styles you are doing?</div>
+    <p>My main editing style is <strong>"Candy Style"</strong>, and I’m currently working on <strong>"Typography"</strong> as well. If you’d ask me which one is harder to learn and create, I’d say <strong>"Candy Style"</strong>. It has so many details—some are meaningful and can barely be noticed, maybe just <strong>3 frames</strong> long haha! But learning it from the start is actually fun. It tests your creativity and helps you discover more about editing.</p>
+
+    <div class="special-text">Where do you get your resources?</div>
+    <p>I get my resources sometimes just from <strong>"Google"</strong>, and also from other editors. I also buy project files from fellow editors, so I can use and learn from the resources they used too. Buying their project files helps me understand their style and how they use graphs.</p>
+
+    <div class="special-text">What is your favourite song?</div>
+    
+ <!-- Spotify Player Embed -->
+    <iframe class="spotify-player" src="https://open.spotify.com/embed/track/55tvHtkqTwGaQtN44CFLV6" width="270" height="95" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+</div>
+
+  </div>
+  
+
+  <footer id="footer">© 2025 VENCZYYY ALL RIGHTS RESERVED.</footer>
+
+  <script>
+    const backBtn = document.getElementById('backBtn');
+    const mainContent = document.getElementById('mainContent');
+    const infoBox = document.getElementById('infoBox');
+    const footer = document.getElementById('footer');
+    const header = document.getElementById('header');
+    const profile = document.getElementById('profile');
+    const buttons = document.getElementById('buttons');
+
+    function toggleInfo(show) {
+      if (show) {
+        // Hide main content with animation
+        header.classList.add('hidden');
+        profile.classList.add('hidden');
+        buttons.classList.add('hidden');
+        footer.classList.add('hidden');
+
+        setTimeout(() => {
+          mainContent.style.display = 'none';
+          infoBox.style.display = 'block';
+          backBtn.classList.add('show');
+          backBtn.classList.remove('hide');
+        }, 500);
+      } else {
+        // Show main content with animation
+        infoBox.style.display = 'none';
+        backBtn.classList.remove('show');
+        backBtn.classList.add('hide');
+
+        mainContent.style.display = 'block';
+        setTimeout(() => {
+          header.classList.remove('hidden');
+          profile.classList.remove('hidden');
+          buttons.classList.remove('hidden');
+          footer.classList.remove('hidden');
+        }, 50);
+      }
+    }
+  </script>
 </body>
 </html>
+</body>
+                                                                                                                                                                                                       </html>
